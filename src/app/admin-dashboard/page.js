@@ -87,7 +87,7 @@ export default function AdminDashboard() {
             <option value="">Select Manager</option>
             {managers.map((manager) => (
               <option key={manager.username} value={manager.username}>
-                {manager.username} (Coins: {manager.coinsAssigned})
+                {manager.username} (Coins: {manager.coinsAssigned} )
               </option>
             ))}
           </select>
@@ -111,7 +111,7 @@ export default function AdminDashboard() {
               {managers.map((manager) => (
                 <li key={manager.username} className="py-2 flex justify-between text-gray-700">
                   <span className="font-medium">{manager.username}</span>
-                  <span className="text-sm text-gray-500">Coins: {manager.coinsAssigned}</span>
+                  <span className="text-sm text-gray-500">Coins: {manager.coinsAssigned-manager.coinsUsed}</span>
                 </li>
               ))}
             </ul>
