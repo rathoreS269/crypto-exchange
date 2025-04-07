@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import User from "@/models/User";
-
+import Manager from "@/models/Manager"; 
 export async function GET(req, context) {
   try {
     await dbConnect();
