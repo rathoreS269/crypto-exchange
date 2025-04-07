@@ -107,49 +107,98 @@ const addCoins = async () => {
 };
 
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 p-8 flex flex-col items-center">
-      <h1 className="text-3xl font-bold text-gray-700 mb-6">Manager Dashboard</h1>
-      <h2 className="text-xl font-semibold  text-black">Manager: {manager?.username}</h2>
-      <p className="text-lg  text-black">Wallet Balance: {managerWallet} Coins</p>
-      <p className="text-lg  text-black">Total Users Under You: {users.length}</p>
+return (
+  <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-blue-900 p-6 sm:p-8 flex flex-col items-center text-white">
+    <h1 className="text-4xl sm:text-5xl font-bold mb-2">👤</h1>
+    <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-center">Manager Dashboard</h2>
 
-      <div className="w-full max-w-lg space-y-6">
-        <div className="bg-white shadow-md rounded-lg p-5">
-          <h2 className="text-lg font-semibold text-gray-600 mb-3">Create User</h2>
-          <input type="text" placeholder="Username" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} className="w-full border border-gray-300 rounded-md p-2 mb-2 text-black" />
-          <input type="password" placeholder="Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="w-full border border-gray-300 rounded-md p-2 mb-2  text-black" />
-          <button onClick={addUser} className="w-full bg-green-500 text-white py-2 rounded-md">Add User</button>
-        </div>
-        <div className="bg-white shadow-md rounded-lg p-5">
-          <h2 className="text-lg font-semibold text-gray-600 mb-3">Send Coins</h2>
-          <select className="w-full border border-gray-300  text-black rounded-md p-2 mb-2" value={selectedUser} onChange={(e) => setSelectedUser(e.target.value)}>
-            <option value="">Select User</option>
-            {users.map((user) => (
-              <option key={user.username} value={user.username}>{user.username} - {user.coins} Coins</option>
-            ))}
-          </select>
-          <input type="number" placeholder="Enter Coins" value={coinsToAdd} onChange={(e) => setCoinsToAdd(e.target.value)} className="w-full border  text-black border-gray-300 rounded-md p-2 mb-2" />
-          <button onClick={addCoins} className="w-full bg-blue-500 text-white py-2 rounded-md">Add Coins</button>
-        </div>
+    <h3 className="text-lg sm:text-xl font-semibold text-blue-300 mb-1">
+      Manager: {manager?.username}
+    </h3>
+    <p className="text-base sm:text-lg mb-1">Wallet Balance: {managerWallet} Coins</p>
+    <p className="text-base sm:text-lg mb-6">Total Users Under You: {users.length}</p>
+
+    <div className="w-full max-w-2xl space-y-6">
+      {/* Create User */}
+      <div className="bg-gray-800 shadow-lg rounded-xl p-5">
+        <h3 className="text-lg font-semibold text-blue-300 mb-3">Create User</h3>
+        <input
+          type="text"
+          placeholder="Username"
+          value={newUsername}
+          onChange={(e) => setNewUsername(e.target.value)}
+          className="w-full border border-gray-600 bg-gray-700 rounded-md p-2 mb-2 text-white focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          className="w-full border border-gray-600 bg-gray-700 rounded-md p-2 mb-2 text-white focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          onClick={addUser}
+          className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition"
+        >
+          Add User
+        </button>
       </div>
 
-      <div className="mt-6 w-full max-w-lg bg-white shadow-md rounded-lg p-5">
-        <h2 className="text-lg font-semibold text-gray-600 mb-3">Users Under You</h2>
-        {users.length > 0 ? (
-          <ul>
-            {users.map((user) => (
-              <li key={user.username} className="border-b border-gray-200 py-2  text-black">
-                <span className="font-semibold">{user.username}</span> - {user. walletBalance} Coins
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className=" text-black">No users assigned yet.</p>
-        )}
+      {/* Send Coins */}
+      <div className="bg-gray-800 shadow-lg rounded-xl p-5">
+        <h3 className="text-lg font-semibold text-blue-300 mb-3">Send Coins</h3>
+        <select
+          className="w-full border border-gray-600 bg-gray-700 text-white rounded-md p-2 mb-2 focus:ring-2 focus:ring-blue-500"
+          value={selectedUser}
+          onChange={(e) => setSelectedUser(e.target.value)}
+        >
+          <option value="">Select User</option>
+          {users.map((user) => (
+            <option key={user.username} value={user.username}>
+              {user.username} - {user.coins} Coins
+            </option>
+          ))}
+        </select>
+        <input
+          type="number"
+          placeholder="Enter Coins"
+          value={coinsToAdd}
+          onChange={(e) => setCoinsToAdd(e.target.value)}
+          className="w-full border border-gray-600 bg-gray-700 text-white rounded-md p-2 mb-2 focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          onClick={addCoins}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition"
+        >
+          Add Coins
+        </button>
       </div>
     </div>
-  );
+
+    {/* Users List */}
+    <div className="mt-6 w-full max-w-2xl bg-gray-800 shadow-lg rounded-xl p-5">
+      <h3 className="text-lg font-semibold text-blue-300 mb-3">Users Under You</h3>
+      {users.length > 0 ? (
+        <ul className="divide-y divide-gray-700">
+          {users.map((user) => (
+            <li
+              key={user.username}
+              className="py-2 flex justify-between text-white"
+            >
+              <span className="font-semibold">{user.username}</span>
+              <span className="text-sm text-gray-300">
+                {user.walletBalance.toFixed(2)} Coins
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-gray-400">No users assigned yet.</p>
+      )}
+    </div>
+  </div>
+);
+
 };
 
 export default ManagerDashboard;

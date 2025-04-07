@@ -145,65 +145,66 @@ const ProductPage = () => {
   }
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Product Market</h2>
-      <p className="text-lg font-semibold text-green-700 mb-4">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-blue-900 text-white p-6 sm:p-8">
+      <h1 className="text-4xl sm:text-5xl font-bold mb-6 text-center">🛒 Product Market</h1>
+      <p className="text-lg font-semibold text-green-300 mb-6 text-center">
         Wallet Balance: ₹{user.walletBalance.toFixed(2)}
       </p>
-
+  
       {/* ✅ Reward Button */}
-      <button
-        onClick={processRewards}
-        className="mb-6 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-      >
-        Process Reward / Loss
-      </button>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="text-center mb-8">
+        <button
+          onClick={processRewards}
+          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+        >
+          Process Reward / Loss
+        </button>
+      </div>
+  
+      {/* ✅ Product Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {products.map((product) => {
           const amount = parseFloat(amounts[product.id]) || 0;
           const units = amount / product.price;
-
+  
           return (
             <div
               key={product.id}
-              className="border p-4 rounded-xl shadow bg-white"
+              className="bg-gray-800 rounded-xl shadow-lg p-5 flex flex-col justify-between"
             >
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-32 object-contain"
+                className="w-full h-32 object-contain rounded-md mb-4"
               />
-              <h3 className="text-lg font-bold mt-3 text-black">
-                {product.name}
-              </h3>
-              <p className="text-black">Price: ₹{product.price}</p>
-              <p className="text-black">
+              <h3 className="text-xl font-bold text-white mb-1">{product.name}</h3>
+              <p className="text-sm text-gray-300 mb-1">Price: ₹{product.price}</p>
+              <p className="text-sm text-yellow-400 mb-3">
                 Status: {randomStatus[product.id] || "Waiting..."}
               </p>
-
+  
               <input
                 type="number"
                 placeholder="Enter amount"
                 value={amounts[product.id] || ""}
                 onChange={(e) => handleAmountChange(product.id, e.target.value)}
-                className="w-full mt-3 px-3 py-2 border rounded-lg text-black"
+                className="w-full px-3 py-2 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
               />
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-gray-400 mb-3">
                 You will get: {units > 0 ? units.toFixed(2) : 0} units
               </p>
-
-              <div className="flex gap-2 mt-3">
+  
+              <div className="flex gap-3">
                 <button
                   onClick={() => buyProduct(product, "good")}
-                  className="w-1/2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition"
                   disabled={!user || amount > user.walletBalance || amount <= 0}
                 >
                   Y (₹{product.price})
                 </button>
                 <button
                   onClick={() => buyProduct(product, "bad")}
-                  className="w-1/2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                  className="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-md transition"
                   disabled={!user || amount > user.walletBalance || amount <= 0}
                 >
                   N (₹{product.price})
@@ -215,6 +216,7 @@ const ProductPage = () => {
       </div>
     </div>
   );
+  
 };
 
 export default ProductPage;

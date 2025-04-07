@@ -81,74 +81,83 @@ const UserDashboard = () => {
   //  console.log("bad products is", badProducts)
 
   return (
-    <div className="p-4 max-w-xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Welcome, {user?.username}</h2>
-      <p className="mb-2 font-medium">Wallet Balance: {user?.walletBalance.toFixed(2)} Coins</p>
-      <p className="mb-2">Manager: {user?.manager?.username}</p>
-
-      <div className="mb-6">
-        <input
-          type="text"
-          placeholder="Enter coins to send"
-          value={coinsToSend}
-          onChange={(e) => {
-            const value = e.target.value;
-            if (value === "" || /^\d+$/.test(value)) {
-              setCoinsToSend(value);
-            }
-          }}
-          className="border p-2 rounded mr-2 w-40"
-        />
-        <button
-          onClick={sendCoinsToManager}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          Send to Manager
-        </button>
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-blue-900 p-6 sm:p-8 text-white flex flex-col items-center">
+      <h1 className="text-4xl sm:text-5xl font-bold mb-2">👤</h1>
+      <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-center">
+        Welcome, {user?.username}
+      </h2>
+      <p className="text-base sm:text-lg mb-1">Wallet Balance: {user?.walletBalance.toFixed(2)} Coins</p>
+      <p className="text-base sm:text-lg mb-6">Manager: {user?.manager?.username}</p>
+  
+      {/* Send Coins */}
+      <div className="w-full max-w-xl mb-8 bg-gray-800 p-5 rounded-xl shadow-lg">
+        <h3 className="text-lg font-semibold text-blue-300 mb-3">Send Coins to Manager</h3>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <input
+            type="text"
+            placeholder="Enter coins to send"
+            value={coinsToSend}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value === "" || /^\d+$/.test(value)) {
+                setCoinsToSend(value);
+              }
+            }}
+            className="border border-gray-600 bg-gray-700 text-white rounded-md p-2 w-full sm:w-40 focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            onClick={sendCoinsToManager}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition"
+          >
+            Send to Manager
+          </button>
+        </div>
       </div>
-
-      <div className="mb-8">
-        <h3 className="text-xl font-semibold mb-2 text-green-700">Good Products</h3>
+  
+      {/* Good Products */}
+      <div className="w-full max-w-xl mb-8 bg-gray-800 p-5 rounded-xl shadow-lg">
+        <h3 className="text-lg font-semibold text-green-400 mb-3">Good Products</h3>
         {goodProducts.length > 0 ? (
-          <ul className="space-y-2">
+          <ul className="space-y-3">
             {goodProducts.map((product, index) => (
-              <li key={index} className="border p-3 rounded bg-green-50 text-black">
-                {product.productId} - Price: {product.price.toFixed(1)} Coins - Quantity:{" "}
-                {product.goodUnits.toFixed(2)} - Total: {(product.price * product.goodUnits).toFixed(1)} Coins
+              <li key={index} className="bg-green-900 text-white p-3 rounded-md">
+                {product.productId} - Price: {product.price.toFixed(1)} Coins - Quantity: {product.goodUnits.toFixed(2)} - Total: {(product.price * product.goodUnits).toFixed(1)} Coins
               </li>
             ))}
           </ul>
         ) : (
-          <p className="text-gray-500">No good products owned.</p>
+          <p className="text-gray-400">No good products owned.</p>
         )}
       </div>
-
-      <div className="mb-8">
-        <h3 className="text-xl font-semibold mb-2 text-red-700">Bad Products</h3>
+  
+      {/* Bad Products */}
+      <div className="w-full max-w-xl mb-8 bg-gray-800 p-5 rounded-xl shadow-lg">
+        <h3 className="text-lg font-semibold text-red-400 mb-3">Bad Products</h3>
         {badProducts.length > 0 ? (
-          <ul className="space-y-2">
+          <ul className="space-y-3">
             {badProducts.map((product, index) => (
-              <li key={index} className="border p-3 rounded bg-red-50 text-black">
-                {product.productId} - Price: {product.price.toFixed(1)} Coins - Quantity:{" "}
-                {product.badUnits.toFixed(2)} - Total: {(product.price * product.badUnits).toFixed(1)} Coins
+              <li key={index} className="bg-red-900 text-white p-3 rounded-md">
+                {product.productId} - Price: {product.price.toFixed(1)} Coins - Quantity: {product.badUnits.toFixed(2)} - Total: {(product.price * product.badUnits).toFixed(1)} Coins
               </li>
             ))}
           </ul>
         ) : (
-          <p className="text-gray-500">No bad products owned.</p>
+          <p className="text-gray-400">No bad products owned.</p>
         )}
       </div>
-
-      <div className="mt-8 text-center">
+  
+      {/* Button to Product Page */}
+      <div className="mt-4">
         <button
           onClick={() => router.push(`/products/${username}`)}
-          className="bg-purple-500 text-white px-6 py-2 rounded hover:bg-purple-600"
+          className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-md transition"
         >
           Go to Product Page
         </button>
       </div>
     </div>
   );
+  
 };
 
 export default UserDashboard;
