@@ -196,6 +196,13 @@ return (
         <p className="text-gray-400">No users assigned yet.</p>
       )}
     </div>
+     {/* 🔙 Home Button */}
+     <button
+      onClick={() => window.location.href = "/"}
+      className="mt-8 bg-white text-blue-900 hover:bg-blue-100 font-semibold px-6 py-2 rounded-xl transition text-sm sm:text-base"
+    >
+      ⬅ Go to Home
+    </button>
   </div>
 );
 
